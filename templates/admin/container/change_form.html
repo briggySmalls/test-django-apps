@@ -1,0 +1,22 @@
+{% extends "admin/change_form.html" %}
+
+{% block extrahead %}{{ block.super }}
+{% load staticfiles %}
+<script src="{% static "homepage/js/jquery-1.10.2.min.js" %}"></script>
+<script>
+ $(document).ready(function(){
+     $(".object_id").append("<div id='lookup_box'></div>");
+ $(".content_type").change(function () {
+      var type = $(".content_type option:selected").text();
+      var good_choice = true;
+      var link_root = '../../../common/';
+      $("#lookup_box").html("<a onclick='return showRelatedObjectLookupPopup(this);' id='lookup_id_object_id' class='related-lookup' href='../../../common/region/'>lookup</a>");
+      $("#lookup_id_object_id").text("Lookup " + type);
+      $("#lookup_id_object_id").attr('href', link_root + type + '/');
+    })
+    .change();
+
+ });
+</script>
+
+{% endblock %}
