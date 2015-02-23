@@ -1,0 +1,92 @@
+{% load staticfiles %}
+<!-- add zineapp static files -->
+<link type="text/css" rel="stylesheet" href="{% static 'zineapp/css/jquery.ui.css' %}"></link>
+<link type="text/css" rel="stylesheet" href="{% static 'zineapp/css/default.css' %}"></link>
+<link type="text/css" rel="stylesheet" href="{% static 'zineapp/css/zine.css' %}"></link>
+<script type="text/javascript" src="{% static 'zineapp/extras/all.js' %}"></script>
+<script type="text/javascript" src="{% static 'zineapp/lib/hash.js' %}"></script>
+<script type="text/javascript" src="{% static 'zineapp/lib/turn.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'zineapp/lib/zoom.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'zineapp/lib/bookshelf.js' %}"></script>
+<script type="text/javascript" src="{% static 'zineapp/lib/zine.js' %}"></script>
+
+<script type="text/javascript">
+samples = {
+    {% for zine in zines %}
+        '{{ zine.slug }}': {
+            'path': '{{ zine.rel_path }}',
+            'pages': {{ zine.page_count }},
+        },
+    {% endfor %}
+};
+options = {'samples': samples};
+$(document).ready(function(){
+    buildBookshelf(options);
+});
+</script>
+
+<style type="text/css">
+.splash{background:url("{% static 'zineapp/pics/splash-bg.jpg'%}") bottom left repeat-x;}
+.icon{background-image:url("{% static 'zineapp/pics/new-sprites.png'%}");}
+/*.bookshelf .shelf .row-1:after,*/
+.bookshelf .shelf .row-2:after{
+    background:url("{% static 'zineapp/pics/wall-bookshelf.png'%}");
+}
+.sample .loader i{
+    background:white url("{% static 'zineapp/pics/loader.gif'%}") 4px 4px no-repeat;}
+.loader{
+    background-image: url("{% static 'zineapp/pics/loader.gif'%}");
+}
+.sam-test .previous-button-hover,
+.sam-test .previous-button-down,
+.sam-test .next-button-hover,
+.sam-test .next-button-down{
+    background-image:url("{% static 'zineapp/pics/arrows.png'%}");
+}
+</style>
+
+<div class="splash">
+    <div class="center">
+        <div class="details">
+            SKIN DEEP ZINES
+        </div>
+
+        <div class="bookshelf">
+            <div class="shelf">
+                <div class="row-1">
+                    <div class="loc">
+                    </div>
+                </div>
+                <div class="row-2">
+                    <div class="loc">
+                        {% for zine in zines %}
+                            <div> <div class="sample {{ zine.slug }}-thumb" sample="{{ zine.slug }}"></div> </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Samples-->
+        <div class="samples">
+            <div class="bar">
+                <div class="share">
+                    <i class="icon table-contents" title="Table of contents"></i>
+                    <i class="icon zoom-in" title="Zoom in"></i>
+                    <i class="icon share-facebook" title="Share on facebook"></i>
+                    <i class="icon share-twitter" title="Share on Twitter"></i>
+                    <i class="icon share-plus" title="Share on G+"></i>
+                    <i class="icon share-pinterest" title="Share on Pinterest"></i>
+                </div>
+                <a class="icon quit"></a>
+            </div>
+            <div id="book-wrapper">
+                <div id="book-zoom"></div>
+            </div>
+            <div id="slider-bar" class="turnjs-slider">
+                <div id="slider"></div>
+            </div>
+
+        </div>
+    </div>
+</div>

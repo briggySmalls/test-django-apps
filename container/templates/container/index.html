@@ -1,0 +1,21 @@
+<ul class="tabs">
+{% for tab in container.sorted_tab_set %}
+    <li>
+        <input type="radio" checked name="tabs" id="tab{{ tab.id }}">
+        <label for="tab1">{{ tab.keyword }}</label>
+        <div id="tab-content{{ tab.id }}" class="tab-content animated fadeIn">
+            {% if tab.article %}
+                {{ tab.article.content |safe }}
+            {% elif tab.category %}
+                {% for article in tab.sorted_article_set %}
+                    <hr>
+                    <h1>{{ article.title }}</h1>
+                    <h2>{{ article.subtitle}}</h2>
+                    {{ article.content |safe }}
+                    <hr>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </li>
+{% endfor %}
+</ul>

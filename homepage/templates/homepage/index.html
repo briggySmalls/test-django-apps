@@ -1,0 +1,64 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="noie"> <!--<![endif]-->
+<head>
+{% load staticfiles %}
+<!-- include the homepage styles -->
+<link rel="stylesheet" type="text/css" href="{% static 'homepage/css/style.css' %}" />
+<!-- inclue fullPage styles -->
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'homepage/css/jquery.fullPage.css' %}" /> -->
+<!-- include jquery javascript -->
+<script type="text/javascript" src="{% static "homepage/js/jquery-1.10.2.min.js" %}"></script>
+<!-- include fullPage javascript -->
+<!-- <script type="text/javascript" src="{% static "homepage/js/jquery.fullPage.min.js" %}"></script> -->
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'homepage/css/onepage-scroll.css' %}" /> -->
+</head>
+
+<body>
+
+<!-- my template main content -->
+
+<div class="main">
+{% for scrollpage in homepage.sorted_scrollpage_set %}
+    <!-- <div id="{{ scollpage.name }}" class="section" style="background-color: {{ scrollpage.bg_colour }}"> -->
+    <section>
+        <!-- <div class="content centred"> -->
+            <!-- {{ scrollpage.name }} -->
+            <!-- insert any containers -->
+<!--             {% if scrollpage.container_set.exists %}
+                {% with scrollpage.container_set.all|first as container %}
+                    {% include "container/index.html" with container=container %}
+                {% endwith %}
+            {% endif %} -->
+            <!-- insert any  ZineApps-->
+            {% if scrollpage.zineapp_set.exists %}
+                {% with scrollpage.zineapp_set.all|first as zineapp %}
+                    {% include "zineapp/index.html" with zines=zineapp.sorted_zine_set %}
+                {% endwith %}
+            {% endif %}
+        <!-- </div> -->
+    </section>
+    <!-- </div> -->
+{% endfor %}
+</div>
+
+<!-- include footer scripts -->
+<!-- <script src="{% static "homepage/js/footerScripts.js" %}"></script> -->
+<script type="text/javascript">
+// $.getScript("{% static 'homepage/js/jquery.onepage-scroll.min.js' %}", function( data, textStatus, jqxhr ) {
+//     $(".main").onepage_scroll({
+//         loop: false,
+//     });
+// });
+$("<link/>", {
+   rel: "stylesheet",
+   type: "text/css",
+   href: "{% static 'container/css/style.css' %}"
+}).appendTo("head");
+</script>
+
+</body>
+</html>

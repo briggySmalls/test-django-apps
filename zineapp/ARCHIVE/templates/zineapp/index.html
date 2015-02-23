@@ -1,0 +1,36 @@
+{% load staticfiles %}
+<!-- add zineapp static files -->
+<link rel="stylesheet" type="text/css" href="{% static 'zineapp/css/zineapp.css' %}" />
+<script src="{% static "zineapp/js/jquery-machine.js" %}"></script>
+<script src="{% static "zineapp/js/turn.min.js" %}"></script>
+
+<!-- add DOM elements for zineapp -->
+<!-- first the app container -->
+<div class="flex-container green">
+{% for zine in zines %}
+    <!-- create a flex-item to position the zine-containers -->
+    <div id="{{zine.pk}}" class="flex-item">{{zine.pk}}
+    </div>
+    <!-- create a zine-container for each zine -->
+    <div id="{{zine.pk}}" class="zine-container">
+        <div class="nav left"></div>
+        <div class="zine">
+            {% for page_url in zine.get_page_urls %}
+                <!-- create a div for each page -->
+                <div style="background-image: url('{{page_url}}')"></div>
+            {% endfor %}
+        </div>
+        <div class="nav right"></div>
+    </div>
+{% endfor %}
+</div>
+
+<div style="background-image: url('/media/Notes_Header/0.png');"></div>
+
+<script type="text/javascript" src="{% static "zineapp/js/zineapp.js" %}"></script>
+<!-- turn.js is here
+http://turnjs.com/lib/turn.min.js -->
+<!-- jquery.event.drag
+http://threedubmedia.com/inc/js/jquery.event.drag-2.2.js -->
+<!-- firebug here
+https://getfirebug.com/firebug-lite-debug.js -->
