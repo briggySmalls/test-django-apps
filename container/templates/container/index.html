@@ -1,21 +1,40 @@
-<ul class="tabs">
-{% for tab in container.sorted_tab_set %}
-    <li>
-        <input type="radio" checked name="tabs" id="tab{{ tab.id }}">
-        <label for="tab1">{{ tab.keyword }}</label>
-        <div id="tab-content{{ tab.id }}" class="tab-content animated fadeIn">
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'container/css/jquery.ui.container.css' %}" />
+<!--<link rel="stylesheet" type="text/css" href="{% static 'container/css/style.css' %} />-->
+<div id="{{ container.slugify_title }}" class="tabs">
+    <ul>
+        {% for tab in container.sorted_tab_set %}
+            <li><a href="#{{ tab.slugify_keyword }}">{{ tab.keyword }}</a></li>
+        {% endfor %}
+    </ul>
+
+    {% for tab in container.sorted_tab_set %}
+        <div id="{{ tab.slugify_keyword }}">
             {% if tab.article %}
+                <h4>{{ tab.article.title }}</h4>
+                <h5>{{ tab.article.subtitle}}</h5>
                 {{ tab.article.content |safe }}
             {% elif tab.category %}
                 {% for article in tab.sorted_article_set %}
-                    <hr>
-                    <h1>{{ article.title }}</h1>
-                    <h2>{{ article.subtitle}}</h2>
+                    <h4>{{ article.title }}</h4>
+                    <h5>{{ article.subtitle}}</h5>
                     {{ article.content |safe }}
                     <hr>
                 {% endfor %}
             {% endif %}
         </div>
-    </li>
-{% endfor %}
-</ul>
+    {% endfor %}
+</div>
+
+<script type="text/javascript">
+(function($) {
+    $(document).ready(function() {
+        $("#{{ container.slugify_title }}").tabs({
+           heightStyle:"fill",
+           collapsible:true,
+           hide:"slideUp",
+            show:"slideDown"
+        });
+    });
+})(jQuery);
+</script>

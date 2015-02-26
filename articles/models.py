@@ -11,10 +11,19 @@ class Category(models.Model):
 
 
 class Article(models.Model):
+    # CONSTANTS
+    FACEBOOK = 'FB'
+    TWITTER = 'TW'
+    widget_choices = (
+        (FACEBOOK, 'facebook'),
+        (TWITTER, 'twitter'),
+    )
+
     # CONTENT
     title = models.CharField(max_length=50)
     subtitle = models.CharField(max_length=100)
     content = RichTextField()
+    # widget = models.CharField(max_length=2,choices=widget_choices, null=True)
 
     # METADATA
     category = models.ForeignKey(Category, blank=True, null=True)
@@ -36,7 +45,7 @@ class Article(models.Model):
             self.end_date is not None else True)
         return in_date_range
     in_date.boolean = True
-    in_date.short_description = 'Status based on start and end dates'
+    in_date.short_description = 'In date?'
 
     def __str__(self):
         return self.title

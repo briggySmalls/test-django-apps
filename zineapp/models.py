@@ -25,6 +25,7 @@ class ZineApp(models.Model):
 
 # Class to create zine issues
 class Zine(models.Model):
+    # USER-CONFIGURED FIELDS
     title = models.CharField(
         max_length=200,
         help_text='must be unique or there will be an error saving the files')
@@ -34,7 +35,9 @@ class Zine(models.Model):
         default="",
         upload_to=content_file_name
     )
+    # AUTO-CONFIGURED FIELDS
     slug = models.CharField(max_length=200, editable=False)
+    page_count = models.IntegerField(editable=False,null=True)
 
     # PUBLIC MEMBER FUNCTIONS
     # display name
@@ -48,24 +51,23 @@ class Zine(models.Model):
         return path
 
     def rel_path(self):
-        from_media = os.path.relpath(self.path(), 'media')  # change to settings.MEDIA_URL?
-        return os.path.join(settings.MEDIA_URL, from_media)
+        return os.path.relpath(self.path(), settings.MEDIA_ROOT)
 
     # used by template to get the number of pages in the zine
-    def page_count(self):
-        pages_list = self._get_pages()
-        return len(pages_list)
+    # def page_count(self):
+    #     pages_list = self._get_pages()
+    #     return len(pages_list)
 
     # used by template to return an array of urls for each page
-    def get_page_urls(self):
-        pages_list = self._get_pages()
-        pages_list = natsorted(pages_list, alg=ns.IGNORECASE)
-        pages_urls = []
-        for filename in pages_list:
-            pages_urls.append(
-                os.path.join(settings.MEDIA_URL, self.slug, '/pages/', filename)
-            )
-        return pages_urls
+    # def get_page_urls(self):
+    #     pages_list = self._get_pages()
+    #     pages_list = natsorted(pages_list, alg=ns.IGNORECASE)
+    #     pages_urls = []
+    #     for filename in pages_list:
+    #         pages_urls.append(
+    #             os.path.join(settings.MEDIA_URL, self.slug, '/pages/', filename)
+    #         )
+    #     return pages_urls
 
     # actions to perform on save
     def save(self, *args, **kwargs):
@@ -76,7 +78,7 @@ class Zine(models.Model):
             old_entry = Zine.objects.get(pk=self.pk)
             if old_entry.title != self.title:
                 pdf_changed = False
-                # if the titl eis changed, rename directory
+                # if the title is changed, rename directory
                 path = os.path.dirname(old_entry.path())
                 new_dir = os.path.normpath(os.path.join(path, self.slug))
                 os.rename(old_entry.path(), new_dir)
@@ -114,12 +116,9 @@ class Zine(models.Model):
         if width and height:
             size = '_' + str(width) + 'x' + str(height) + 'px'
 
-        # filename = self.pdf_file.name
         filepath = self.pdf_file.name
         thumb_dir = os.path.normpath(os.path.join(self.path(), 'pics', ''))
         img_dir = os.path.normpath(os.path.join(self.path(), 'pages', ''))
-        # output_dir = filepath + '_' + format + size + '/'
-        # output_dir = os.path.splitext(filepath)[0] + '/'
         os.makedirs(img_dir)  # mkdirs required for making folders recursively
         os.makedirs(thumb_dir)
 
@@ -140,11 +139,15 @@ class Zine(models.Model):
                     thumb.resize(92, 115)
                     thumb.save(filename=thumb_dir + '/thumb.' + format)
 
+        #record the number of pages
+        self.page_count = input_file.getNumPages()
+        models.Model.save(self)  # don't trigger save function again.
+
     # PRIVATE MEMBER FUNCTIONS
-    def _get_pages(self):
-        pages_dir = os.path.join(self.path(), 'pages')
-        pages_list = os.listdir(pages_dir)
-        return pages_list
+    # def _get_pages(self):
+    #     pages_dir = os.path.join(self.path(), 'pages')
+    #     pages_list = os.listdir(pages_dir)
+    #     return pages_list
 
     # TO DO: add method to create thumbnail sprites
     # TO DO: add method to create thumbnail for bookshelf

@@ -1,15 +1,3 @@
-@font-face {
-	font-family: 'District Thin';
-	src: url("../fonts/DistTh___.ttf");
-}
-
-@font-face {
-  font-family: 'Stempel-Garamond-W01-Roman';
-  font-style: normal;
-  font-weight: normal;
-  src: url('../fonts/Stempel-Garamond-W01-Roman.woff') format('woff');
-}
-
 body, ul, table, form{
 	margin:0;
 	padding:0;
@@ -223,7 +211,7 @@ li{
 	overflow:hidden;
 	position:relative;
 	/*background:url(../pics/splash-bg.jpg) bottom left repeat-x;*/
-	
+
 	-webkit-transition:height 1s;
 	-moz-transition:height 1s;
 	-ms-transition:height 1s;

@@ -1,9 +1,10 @@
 {% load staticfiles %}
+{% load static %}
 <!-- add zineapp static files -->
+<!-- Find some way to cut down on all these DOM requests (combine some?) -->
 <link type="text/css" rel="stylesheet" href="{% static 'zineapp/css/jquery.ui.css' %}"></link>
 <link type="text/css" rel="stylesheet" href="{% static 'zineapp/css/default.css' %}"></link>
 <link type="text/css" rel="stylesheet" href="{% static 'zineapp/css/zine.css' %}"></link>
-<script type="text/javascript" src="{% static 'zineapp/extras/all.js' %}"></script>
 <script type="text/javascript" src="{% static 'zineapp/lib/hash.js' %}"></script>
 <script type="text/javascript" src="{% static 'zineapp/lib/turn.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'zineapp/lib/zoom.min.js' %}"></script>
@@ -11,18 +12,19 @@
 <script type="text/javascript" src="{% static 'zineapp/lib/zine.js' %}"></script>
 
 <script type="text/javascript">
-samples = {
-    {% for zine in zines %}
-        '{{ zine.slug }}': {
-            'path': '{{ zine.rel_path }}',
-            'pages': {{ zine.page_count }},
-        },
-    {% endfor %}
-};
-options = {'samples': samples};
-$(document).ready(function(){
+(function($) {
+    media_path = '{% get_media_prefix %}';
+    samples = {
+        {% for zine in zines %}
+            '{{ zine.slug }}': {
+                'path': media_path + '{{ zine.rel_path }}',
+                'pages': {{ zine.page_count }},
+            },
+        {% endfor %}
+    };
+    options = {'samples': samples};
     buildBookshelf(options);
-});
+})(jQuery)
 </script>
 
 <style type="text/css">

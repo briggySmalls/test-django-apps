@@ -8,31 +8,30 @@
 {% load staticfiles %}
 <!-- include the homepage styles -->
 <link rel="stylesheet" type="text/css" href="{% static 'homepage/css/style.css' %}" />
+<script type="text/javascript" src="{% static 'homepage/js/all.js' %}"></script>
 <!-- inclue fullPage styles -->
 <!-- <link rel="stylesheet" type="text/css" href="{% static 'homepage/css/jquery.fullPage.css' %}" /> -->
 <!-- include jquery javascript -->
-<script type="text/javascript" src="{% static "homepage/js/jquery-1.10.2.min.js" %}"></script>
+<!--<script type="text/javascript" src="{% static "homepage/js/jquery-1.10.2.min.js" %}"></script>-->
 <!-- include fullPage javascript -->
 <!-- <script type="text/javascript" src="{% static "homepage/js/jquery.fullPage.min.js" %}"></script> -->
-<!-- <link rel="stylesheet" type="text/css" href="{% static 'homepage/css/onepage-scroll.css' %}" /> -->
+ <link rel="stylesheet" type="text/css" href="{% static 'homepage/css/onepage-scroll.css' %}" />
 </head>
 
 <body>
-
-<!-- my template main content -->
-
 <div class="main">
+<!-- my template main content -->
 {% for scrollpage in homepage.sorted_scrollpage_set %}
     <!-- <div id="{{ scollpage.name }}" class="section" style="background-color: {{ scrollpage.bg_colour }}"> -->
     <section>
-        <!-- <div class="content centred"> -->
+         <!--<div class="content centred"> -->
             <!-- {{ scrollpage.name }} -->
             <!-- insert any containers -->
-<!--             {% if scrollpage.container_set.exists %}
+            {% if scrollpage.container_set.exists %}
                 {% with scrollpage.container_set.all|first as container %}
                     {% include "container/index.html" with container=container %}
                 {% endwith %}
-            {% endif %} -->
+            {% endif %}
             <!-- insert any  ZineApps-->
             {% if scrollpage.zineapp_set.exists %}
                 {% with scrollpage.zineapp_set.all|first as zineapp %}
@@ -48,15 +47,15 @@
 <!-- include footer scripts -->
 <!-- <script src="{% static "homepage/js/footerScripts.js" %}"></script> -->
 <script type="text/javascript">
-// $.getScript("{% static 'homepage/js/jquery.onepage-scroll.min.js' %}", function( data, textStatus, jqxhr ) {
-//     $(".main").onepage_scroll({
-//         loop: false,
-//     });
-// });
+$.getScript("{% static 'homepage/js/jquery.onepage-scroll.min.js' %}", function( data, textStatus, jqxhr ) {
+    $(".main").onepage_scroll({
+        loop: false,
+    });
+});
 $("<link/>", {
-   rel: "stylesheet",
-   type: "text/css",
-   href: "{% static 'container/css/style.css' %}"
+  rel: "stylesheet",
+  type: "text/css",
+  href: "{% static 'container/css/style.css' %}"
 }).appendTo("head");
 </script>
 

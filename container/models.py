@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from articles.models import Article, Category
 
 
@@ -16,6 +17,9 @@ class Container(models.Model):
     def sorted_tab_set(self):
         return self.tab_set.order_by('pk')  # TO DO: sort by something else
 
+    def slugify_title(self):
+        return slugify(self.title)
+
 
 class Tab(models.Model):
     # a Container is made up of Tabs
@@ -32,3 +36,6 @@ class Tab(models.Model):
 
     def sorted_article_set(self):
         return self.category.article_set.order_by('pk')  # TO DO: sort by something else
+
+    def slugify_keyword(self):
+        return slugify(self.keyword)
