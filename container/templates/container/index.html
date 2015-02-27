@@ -1,31 +1,32 @@
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'container/css/jquery.ui.container.css' %}" />
-<!--<link rel="stylesheet" type="text/css" href="{% static 'container/css/style.css' %} />-->
 <div id="{{ container.slugify_title }}" class="tabs">
+    {% if container.sorted_tab_set|length > 1 %}
     <ul>
         {% for tab in container.sorted_tab_set %}
             <li><a href="#{{ tab.slugify_keyword }}">{{ tab.keyword }}</a></li>
         {% endfor %}
     </ul>
-
+    {% endif %}
     {% for tab in container.sorted_tab_set %}
         <div id="{{ tab.slugify_keyword }}">
             {% if tab.article %}
                 <h4>{{ tab.article.title }}</h4>
                 <h5>{{ tab.article.subtitle}}</h5>
-                {{ tab.article.content |safe }}
+                {{ tab.article.full_content |safe }}
             {% elif tab.category %}
                 {% for article in tab.sorted_article_set %}
-                    <h4>{{ article.title }}</h4>
-                    <h5>{{ article.subtitle}}</h5>
-                    {{ article.content |safe }}
-                    <hr>
+                    <div class="category-item">
+                        <h4>{{ article.title }}</h4>
+                        <h5>{{ article.subtitle}}</h5>
+                        {{ article.full_content |safe }}
+                        <hr>
+                    </div>
                 {% endfor %}
             {% endif %}
         </div>
     {% endfor %}
 </div>
 
+{% if container.sorted_tab_set|length > 1 %}
 <script type="text/javascript">
 (function($) {
     $(document).ready(function() {
@@ -38,3 +39,4 @@
     });
 })(jQuery);
 </script>
+{% endif %}

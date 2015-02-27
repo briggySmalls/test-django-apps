@@ -1,5 +1,9 @@
 /*! Sam Briggs
-* container styling */
+/* FLEXBOX STYLING */
+.category-item{
+    display: inline-block;
+}
+/* container styling */
 .ui-tabs-nav {
     height: 2.35em;
     text-align: center !important;

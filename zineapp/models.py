@@ -4,7 +4,7 @@ from wand.image import Image
 import os
 from django.conf import settings
 import shutil
-from natsort import natsorted, ns
+# from natsort import natsorted, ns
 # Receive the pre_delete signal and delete the file associated with the model instance.
 from django.db.models.signals import post_delete
 from django.dispatch.dispatcher import receiver
