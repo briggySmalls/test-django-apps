@@ -7,6 +7,8 @@
 	width:922px;
 	height:600px;
 	z-index:0;
+	-webkit-transition:margin-left 0.2s ease-in-out;
+	transition:margin-left 0.2s ease-in-out;
 }
 
 .sam-test .page{

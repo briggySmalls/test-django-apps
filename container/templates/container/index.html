@@ -7,7 +7,7 @@
     </ul>
     {% endif %}
     {% for tab in container.sorted_tab_set %}
-        <div id="{{ tab.slugify_keyword }}">
+        <div id="{{ tab.slugify_keyword }}" class="tab">
             {% if tab.article %}
                 <h4>{{ tab.article.title }}</h4>
                 <h5>{{ tab.article.subtitle}}</h5>
@@ -18,7 +18,6 @@
                         <h4>{{ article.title }}</h4>
                         <h5>{{ article.subtitle}}</h5>
                         {{ article.full_content |safe }}
-                        <hr>
                     </div>
                 {% endfor %}
             {% endif %}
@@ -36,6 +35,7 @@
            hide:"slideUp",
             show:"slideDown"
         });
+        $('.tabs').width('100%');
     });
 })(jQuery);
 </script>

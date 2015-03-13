@@ -169,7 +169,8 @@ buildBookshelf = function(options){
 
       currentDemo = null;
 
-      Hash.go('');
+      // 'javascript:void(null);' is called for link, undefined so no scroll jump
+      Hash.go('javascript:void(null);');
 
       if (Modernizr.csstransforms) {
 
@@ -379,10 +380,10 @@ buildBookshelf = function(options){
   };
 
   function setCurrentHash() {
-    var top = $(window).scrollTop();
+    // var top = $(window).scrollTop();
 
-    if (top===0)
-      Hash.go(demoHash);
+    // if (top===0)
+    Hash.go(demoHash);
   }
 
   function splashHeight() {
@@ -390,6 +391,7 @@ buildBookshelf = function(options){
   }
 
   function scrollTop(top, speed) {
+      console.log("dummy function");
     // scrolling = true;
 
     // $('html,body').animate({scrollTop: top}, speed, function() {
@@ -491,14 +493,14 @@ buildBookshelf = function(options){
 
     if (!$.isTouch) {
       $('.go-up').click(function(e) {
-        scrollTop(0, 'fast');
+        // scrollTop(0, 'fast');
         e.preventDefault();
       });
 
       $('.splash').click(function(){
-        if ($(window).scrollTop()>100)
+        // if ($(window).scrollTop()>100)
           // scrollTop(0, 'fast');
-          console.log('would scroll');
+        //   console.log('would scroll');
       });
     }
 
@@ -596,7 +598,7 @@ buildBookshelf = function(options){
 
     clickElement($('.quit'), function() {
 
-      Hash.go('');
+      Hash.go('javascript:void(null);');
 
     });
 
@@ -666,7 +668,7 @@ buildBookshelf = function(options){
 
         if (samples[sample]) {
           bookshelf.open(sample);
-          $('body').scrollTop(0);
+        //   $('body').scrollTop(0);
         }
 
         demoHash = path;
@@ -682,83 +684,61 @@ buildBookshelf = function(options){
       }
     });
 
-    // Sections and navigation
-
-    Hash.on(sections, {
-      yep: function(path, parts) {
-        var section = parts[1],
-          content = $('#section-'+section),
-          splashOffTop = (splashHeight()+100)/2 - parseInt(content.css('marginTop'), 10);
-
-        $('nav a[href!="#'+section+'"]').removeClass('on');
-        $('nav a[href="#'+section+'"]').addClass('on');
-
-        if ($.isTouch || $('.splash').height()>=$(window).height()) {
-          scrollTop(content.offset().top-50);
-        } else {
-          scrollTop(content.offset().top - $('.splash').height() + splashOffTop, 'fast');
-        }
-
-      },
-      nop: function() {
-        $('nav a').removeClass('on');
-      }
-    });
-
     if ($('.bookshelf-row').is(':visible'))
-      window.scrollTo(0, 1);
+    //   window.scrollTo(0, 1);
+        console.log("dummy function");
 
   }).scroll(function(e) {
+      console.log("dummy function");
+    // e.preventDefault();
 
-    e.preventDefault();
+    // if ($('.bookshelf-row').is(':visible'))
+    //   return;
 
-    if ($('.bookshelf-row').is(':visible'))
-      return;
+    // if ($.isTouch || $('.splash').height()>=$(window).height()) {
 
-    if ($.isTouch || $('.splash').height()>=$(window).height()) {
+    //   if (!scrolling)
+    //     setCurrentHash();
 
-      if (!scrolling)
-        setCurrentHash();
+    // } else {
 
-    } else {
+    //   var from = 100,
+    //     height = splashHeight(),
+    //     top = Math.min((height+from)/2, $(window).scrollTop()),
+    //     progress =  Math.max(0, Math.min(1, (top*2 - from)/height));
 
-      var from = 100,
-        height = splashHeight(),
-        top = Math.min((height+from)/2, $(window).scrollTop()),
-        progress =  Math.max(0, Math.min(1, (top*2 - from)/height));
+    //   if (progress!=window._scrollProgress) {
 
-      if (progress!=window._scrollProgress) {
+    //     if (top>from) {
 
-        if (top>from) {
+    //       $('.splash').
+    //         addClass('no-transition').
+    //         css({height: height-top+from});
 
-          $('.splash').
-            addClass('no-transition').
-            css({height: height-top+from});
+    //       if (progress==1) {
+    //         $('body').addClass('fixed');
+    //       } else {
+    //         $('body').removeClass('fixed');
+    //       }
 
-          if (progress==1) {
-            $('body').addClass('fixed');
-          } else {
-            $('body').removeClass('fixed');
-          }
+    //     } else {
+    //       $('.splash').css({height: ''});
+    //       $('body').removeClass('fixed');
+    //     }
 
-        } else {
-          $('.splash').css({height: ''});
-          $('body').removeClass('fixed');
-        }
+    //     if (!scrolling)
+    //       setCurrentHash();
 
-        if (!scrolling)
-          setCurrentHash();
+    //     var shadow = '0px -20px ' + (100*progress) + 'px rgba(0,0,0,'+(0.5*progress)+')';
 
-        var shadow = '0px -20px ' + (100*progress) + 'px rgba(0,0,0,'+(0.5*progress)+')';
+    //     $('.splash > .gradient').css({
+    //       '-webkit-box-shadow': shadow,
+    //       '-moz-box-shadow': shadow,
+    //       'box-shadow': shadow});
 
-        $('.splash > .gradient').css({
-          '-webkit-box-shadow': shadow,
-          '-moz-box-shadow': shadow,
-          'box-shadow': shadow});
-
-        _scrollProgress = progress;
-      }
-    }
+    //     _scrollProgress = progress;
+    //   }
+    // }
 
   }).resize(function(e) {
 

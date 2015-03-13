@@ -1,7 +1,13 @@
 /*! Sam Briggs
 /* FLEXBOX STYLING */
+.tab{
+    width: 100%;
+}
 .category-item{
     display: inline-block;
+    vertical-align: top;
+    width: 300px;
+    margin: 10px;
 }
 /* container styling */
 .ui-tabs-nav {

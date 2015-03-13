@@ -9,7 +9,7 @@
 <!-- add homepage static files -->
 <link rel="stylesheet" type="text/css" href="{% static 'homepage/css/style.css' %}" />
 <script type="text/javascript" src="{% static 'homepage/js/all.js' %}"></script>
-<link rel="stylesheet" type="text/css" href="{% static 'homepage/css/onepage-scroll.css' %}" />
+<!--<link rel="stylesheet" type="text/css" href="{% static 'homepage/css/onepage-scroll.css' %}" />-->
 
 <!-- TO DO: make these IF each app exists -->
 <!-- add container static files -->
@@ -38,11 +38,11 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-<div class="main">
+<!--<div class="main">-->
 <!-- my template main content -->
 {% for scrollpage in homepage.sorted_scrollpage_set %}
     <!-- <div id="{{ scollpage.name }}" class="section" style="background-color: {{ scrollpage.bg_colour }}"> -->
-    <section>
+    <!--<section>-->
          <!--<div class="content centred"> -->
             <!-- {{ scrollpage.name }} -->
             <!-- insert any containers -->
@@ -58,19 +58,19 @@
                 {% endwith %}
             {% endif %}
         <!-- </div> -->
-    </section>
+    <!--</section>-->
     <!-- </div> -->
 {% endfor %}
-</div>
+<!--</div>-->
 
 <!-- include footer scripts -->
 <!-- <script src="{% static "homepage/js/footerScripts.js" %}"></script> -->
 <script type="text/javascript">
-$.getScript("{% static 'homepage/js/jquery.onepage-scroll.min.js' %}", function( data, textStatus, jqxhr ) {
-    $(".main").onepage_scroll({
-        loop: false,
-    });
-});
+// $.getScript("{% static 'homepage/js/jquery.onepage-scroll.min.js' %}", function( data, textStatus, jqxhr ) {
+//     $(".main").onepage_scroll({
+//         loop: false,
+//     });
+// });
 $("<link/>", {
   rel: "stylesheet",
   type: "text/css",

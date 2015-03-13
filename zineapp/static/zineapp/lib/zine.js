@@ -19,8 +19,9 @@ zine = function(sampleName, samplePath, pageCount){
     function addPage(page, book) {
 
         var id, pages = book.turn('pages');
-
-        var element = $('<div />', {}).addClass('hard');
+        var hardPages = [1, 2, pageCount - 1, pageCount];
+        var classes = (hardPages.indexOf(page) > -1) ? 'hard' : '';
+        var element = $('<div />', {}).addClass(classes);
 
         if (book.turn('addPage', element, page)) {
             element.html('<div class="gradient"></div><div class="loader"></div>');
@@ -72,7 +73,7 @@ zine = function(sampleName, samplePath, pageCount){
     }
 
     function loadLargePage(page, pageElement) {
-        
+
         var img = $('<img />');
 
         img.load(function() {
@@ -81,14 +82,14 @@ zine = function(sampleName, samplePath, pageCount){
             $(this).css({width: '100%', height: '100%'});
             $(this).appendTo(pageElement);
             prevImg.remove();
-            
+
         });
 
         img.attr('src', samplePath + 'pages/' +  page + '-large.jpg');
     }
 
     function loadSmallPage(page, pageElement) {
-        
+
         var img = pageElement.find('img');
 
         img.css({width: '100%', height: '100%'});
@@ -130,21 +131,21 @@ zine = function(sampleName, samplePath, pageCount){
             when: {
 
             turning: function(e, page, view) {
-                
+
                 var book = $(this),
                 currentPage = book.turn('page'),
                 pages = book.turn('pages');
-                
+
                 if (!$('.splash .bookshelf').is(':visible'))
                     Hash.go('samples/' + sampleName+'/'+page).update();
 
-                
+
                 if (page==1)
                     $('.previous-button').hide();
                 else
                     $('.previous-button').show();
-                    
-                
+
+
                 if (page==pages)
                     $('.next-button').hide();
                 else
@@ -169,13 +170,13 @@ zine = function(sampleName, samplePath, pageCount){
             },
 
             start: function(e, pageObj) {
-        
+
                 bookshelf.moveBar(true);
 
             },
 
             end: function(e, pageObj) {
-            
+
                 var book = $(this);
 
                 setTimeout(function() {
@@ -220,7 +221,7 @@ zine = function(sampleName, samplePath, pageCount){
 
                     if (scale==1) {
 
-                        $('.splash').addClass('no-transition').height('');
+                        // $('.splash').addClass('no-transition').height('');
                         $('body > :not(.splash)').show();
                         $('.bar').css({visibility:'visible'});
                         $('#slider-bar').css({visibility:'visible'});
@@ -245,7 +246,7 @@ zine = function(sampleName, samplePath, pageCount){
                 },
 
                 zoomOut: function () {
-            
+
                     setTimeout(function(){
                         $('sam-test').addClass('animated').removeClass('zoom-in');
                     }, 0);
@@ -259,7 +260,7 @@ zine = function(sampleName, samplePath, pageCount){
                 },
 
                 swipeRight: function() {
-                    
+
                     $('sam-test').turn('previous');
 
                 }
@@ -319,8 +320,8 @@ zine = function(sampleName, samplePath, pageCount){
                     '<div ignore="1" class="previous-button"></div>'
                 ).
                 appendTo($('#book-zoom'));
-            
-        
+
+
             sample.flipbook.find('.next-button').mouseover(function() {
                 $(this).addClass('next-button-hover');
             }).mouseout(function() {
@@ -333,7 +334,7 @@ zine = function(sampleName, samplePath, pageCount){
             }).click(function() {
                 sample.flipbook.turn('next');
             });
-        
+
             sample.flipbook.find('.previous-button').mouseover(function() {
                 $(this).addClass('previous-button-hover');
             }).mouseout(function() {
@@ -350,7 +351,7 @@ zine = function(sampleName, samplePath, pageCount){
             loadFlipbook(sample.flipbook);
 
         } else {
-                
+
             bookshelf.showSample();
 
         }
