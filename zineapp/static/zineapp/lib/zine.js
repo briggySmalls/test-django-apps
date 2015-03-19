@@ -197,7 +197,6 @@ zine = function(sampleName, samplePath, pageCount){
     });
 
         // Zoom
-
         $('.splash').zoom({
             flipbook: flipbook,
 
@@ -221,8 +220,8 @@ zine = function(sampleName, samplePath, pageCount){
 
                     if (scale==1) {
 
-                        // $('.splash').addClass('no-transition').height('');
-                        $('body > :not(.splash)').show();
+                        $('.splash').addClass('no-transition').height('');
+                        // $('body > :not(.splash)').show();
                         $('.bar').css({visibility:'visible'});
                         $('#slider-bar').css({visibility:'visible'});
                         bookshelf.zoomOutButton(false);
@@ -231,7 +230,7 @@ zine = function(sampleName, samplePath, pageCount){
 
                         $('sam-test').removeClass('animated').addClass('zoom-in');
                         $('.splash').addClass('no-transition').height($(window).height());
-                        $('body > :not(.splash)').hide();
+                        // $('body > :not(.splash)').hide(); TO DO: hide window scrollbar when zoomed
 
                     }
 

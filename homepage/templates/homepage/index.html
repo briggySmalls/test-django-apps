@@ -7,9 +7,17 @@
 <head>
 {% load staticfiles %}
 <!-- add homepage static files -->
-<link rel="stylesheet" type="text/css" href="{% static 'homepage/css/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'homepage/css/homepagestyle.css' %}" />
 <script type="text/javascript" src="{% static 'homepage/js/all.js' %}"></script>
-<!--<link rel="stylesheet" type="text/css" href="{% static 'homepage/css/onepage-scroll.css' %}" />-->
+<!-- plus those from html5 template -->
+<script src="{% static 'homepage/js/skel.min.js' %}"></script>
+<script src="{% static 'homepage/js/skel-layers.min.js' %}"></script>
+<script src="{% static 'homepage/js/init.js' %}"></script>
+<noscript>
+  <link rel="stylesheet" href="{% static 'homepage/css/skel.css' %}" />
+  <link rel="stylesheet" href="{% static 'homepage/css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'homepage/css/style-xlarge.css' %}" />
+</noscript>
 
 <!-- TO DO: make these IF each app exists -->
 <!-- add container static files -->
@@ -27,7 +35,7 @@
 <script type="text/javascript" src="{% static 'zineapp/lib/zine.js' %}"></script>
 </head>
 
-<body>
+<body class="landing">
 <!-- facebook sdk -->
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -71,11 +79,11 @@
 //         loop: false,
 //     });
 // });
-$("<link/>", {
-  rel: "stylesheet",
-  type: "text/css",
-  href: "{% static 'container/css/style.css' %}"
-}).appendTo("head");
+// $("<link/>", {
+//   rel: "stylesheet",
+//   type: "text/css",
+//   href: "{% static 'container/css/style.css' %}"
+// }).appendTo("head");
 </script>
 
 </body>

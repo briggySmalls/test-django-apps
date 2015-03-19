@@ -2,6 +2,7 @@ from django.db import models
 from PyPDF2 import PdfFileReader
 from wand.image import Image
 import os
+from urllib.request import pathname2url
 from django.conf import settings
 import shutil
 # from natsort import natsorted, ns
@@ -45,13 +46,14 @@ class Zine(models.Model):
         return self.title
 
     # return absolute path of pdf file
-    # used by template to get the resources for the zine
-    def path(self):
+    def _path(self):
         path = os.path.dirname(self.pdf_file.name)
         return path
 
-    def rel_path(self):
-        return os.path.relpath(self.path(), settings.MEDIA_ROOT)
+    # return relative url of Zine media (used in template)
+    def rel_url(self):
+        rel_path = os.path.relpath(self._path(), os.path.dirname(settings.MEDIA_ROOT))
+        return pathname2url(rel_path)
 
     # used by template to get the number of pages in the zine
     # def page_count(self):

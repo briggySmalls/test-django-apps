@@ -8,7 +8,7 @@ class Container(models.Model):
     # a container is registered to a scrollpage
     # this could later be registered to a scrollpage POSITION
     # make OnetoOne so that position gets taken?
-    scrollpage = models.ForeignKey('homepage.ScrollPage')
+    scrollpage = models.ForeignKey('homepage.ScrollPage', blank=True, null=True)
     title = models.CharField(max_length=200)
 
     def __str__(self):

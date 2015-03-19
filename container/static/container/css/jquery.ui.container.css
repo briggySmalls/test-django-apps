@@ -1,15 +1,13 @@
-/*! Sam Briggs
-/* FLEXBOX STYLING */
-.tab{
+/* Custom Styling (SJB)
+----------------------------------*/
+.ui-tabs{
+    height: 250px;
     width: 100%;
 }
-.category-item{
-    display: inline-block;
-    vertical-align: top;
-    width: 300px;
-    margin: 10px;
+.ui-tabs-panel{
+    height: 100%;
 }
-/* container styling */
+/* custom-style the tab links (underline on mouseover etc) */
 .ui-tabs-nav {
     height: 2.35em;
     text-align: center !important;
@@ -20,19 +18,17 @@
     top: 0px;
     margin: 0em;
 }
-.tabs ul li a:focus { outline:none;}
-
-.tabs ul li a {
+.ui-tabs ul li a:focus { outline:none;}
+.ui-tabs ul li a {
   border-bottom: 1px solid rgba(192, 192, 192, 0);
   /* ^- the important bit. RGB 192,192,192 is the same as #C0C0C0*/
-
   -webkit-transition: border 500ms ease;
   -moz-transition: border 500ms ease;
   -ms-transition: border 500ms ease;
   -o-transition: border 500ms ease;
   transition: border 500ms ease;
 }
-.tabs ul li a:hover, .ui-tabs-active a{
+.ui-tabs ul li a:hover, .ui-tabs-active a{
     border-bottom: 1px solid rgba(192, 192, 192, 1) !important;
 }
 

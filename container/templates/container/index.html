@@ -1,4 +1,5 @@
-<div id="{{ container.slugify_title }}" class="tabs">
+<section id="one" class="wrapper style1 align-center">
+<div id="{{ container.slugify_title }}">
     {% if container.sorted_tab_set|length > 1 %}
     <ul>
         {% for tab in container.sorted_tab_set %}
@@ -7,23 +8,28 @@
     </ul>
     {% endif %}
     {% for tab in container.sorted_tab_set %}
-        <div id="{{ tab.slugify_keyword }}" class="tab">
+        <div id="{{ tab.slugify_keyword }}">
             {% if tab.article %}
-                <h4>{{ tab.article.title }}</h4>
-                <h5>{{ tab.article.subtitle}}</h5>
-                {{ tab.article.full_content |safe }}
+                    <h4>{{ tab.article.title }}</h4>
+                    <h5>{{ tab.article.subtitle}}</h5>
+                    {{ tab.article.full_content |safe }}
             {% elif tab.category %}
-                {% for article in tab.sorted_article_set %}
-                    <div class="category-item">
-                        <h4>{{ article.title }}</h4>
-                        <h5>{{ article.subtitle}}</h5>
-                        {{ article.full_content |safe }}
+                <div class="container">
+                    <div class="row 200%">
+                        {% for article in tab.sorted_article_set %}
+                        <section class="4u 12u$(small)">
+                                <h4>{{ article.title }}</h4>
+                                <h5>{{ article.subtitle}}</h5>
+                                {{ article.full_content |safe }}
+                        </section>
+                        {% endfor %}
                     </div>
-                {% endfor %}
+                </div>
             {% endif %}
         </div>
     {% endfor %}
 </div>
+</section>
 
 {% if container.sorted_tab_set|length > 1 %}
 <script type="text/javascript">

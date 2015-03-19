@@ -3,11 +3,10 @@
 
 <script type="text/javascript">
 (function($) {
-    media_path = '{% get_media_prefix %}';
     samples = {
         {% for zine in zines %}
             '{{ zine.slug }}': {
-                'path': media_path + '{{ zine.rel_path }}',
+                'path': '{{ zine.rel_url }}',
                 'pages': {{ zine.page_count }},
             },
         {% endfor %}
