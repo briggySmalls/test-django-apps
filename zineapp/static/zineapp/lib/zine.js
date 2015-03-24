@@ -274,14 +274,12 @@ zine = function(sampleName, samplePath, pageCount){
         $('#slider').slider('option', 'max', numberOfViews(flipbook));
 
         flipbook.addClass('animated');
-        bookshelf.showSample();
-
     }
 
     ////////////
 
     bookshelf.loadSample(sampleName, function(action) {
-
+        // callback performed each time sample is opened
         var sample = this;
 
         bookshelf.preloadImgs(['1.jpg'], samplePath + 'pages/',
@@ -302,7 +300,6 @@ zine = function(sampleName, samplePath, pageCount){
 
 
         // Report that the flipbook is loaded
-
         if (!sample.flipbook) {
 
             var bookClass = (Modernizr.csstransforms) ?
@@ -349,12 +346,10 @@ zine = function(sampleName, samplePath, pageCount){
 
             loadFlipbook(sample.flipbook);
 
-        } else {
-
-            bookshelf.showSample();
-
         }
-
+            sample.flipbook.turn("display", isSmall() ? "single" : "double");
+            sample.flipbook.turn("size", isSmall() ? 461 : 922, 600);
+            bookshelf.showSample();
         });
 
     });

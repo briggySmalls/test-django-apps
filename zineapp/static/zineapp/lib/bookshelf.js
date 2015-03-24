@@ -779,6 +779,27 @@ buildBookshelf = function(options){
     }
 
   });
+
+  // VIEWPORT ADJUSTMENTS
+  
+  // on viewport change to small, set any zine to single page
+  skel.on('+small', function() {
+    if (!currentDemo)
+      return;
+    var sample = samples[currentDemo];
+    sample.flipbook.turn("display", "single");
+    sample.flipbook.turn("size", 461, 600);
+  });
+
+  // on viewport change from small, set any zine to single page
+  skel.on('-small', function() {
+    if (!currentDemo)
+      return;
+    var sample = samples[currentDemo];
+    sample.flipbook.turn("display", "double");
+    sample.flipbook.turn("size", 922, 600);
+  });
+
 };
 })(jQuery);
 
@@ -800,6 +821,9 @@ function isChrome() {
   return navigator.userAgent.indexOf('Chrome')!=-1;
 }
 
+function isSmall() {
+  return skel.isActive('small');
+}
 
 function numberOfViews(book) {
   return book.turn('pages') / 2 + 1;

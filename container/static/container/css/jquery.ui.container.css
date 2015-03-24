@@ -1,7 +1,7 @@
 /* Custom Styling (SJB)
 ----------------------------------*/
 .ui-tabs{
-    height: 250px;
+    max-height: 500px;
     width: 100%;
 }
 .ui-tabs-panel{
