@@ -38,65 +38,72 @@
 .details .tabs ul{display: none;};
 </style>
 
+<section id="main" class="wrapper" style="padding: 0;">
 <div class="splash">
-    <div class="center">
-        <div class="details">
-            SKIN DEEP ZINES
-            <div class="tabs">
-                <ul>
-                {% for zine in zines %}
-                    <li><a href="#{{ zine.slug }}"></a></li>
-                {% endfor %}
-                </ul>
-                {% for zine in zines %}
-                    <div id="{{ zine.slug }}">
-                        <h1>{{ zine.title }}</h1>
-                        {{ zine.description }}
-                    </div>
-                {% endfor %}
-            </div>
-            someday soon you will be able to visit our <a href="">online articles</a>...
-        </div>
-
-        <div class="bookshelf">
-            <div class="shelf">
-                <div class="row-1">
-                    <div class="loc">
-                    </div>
-                </div>
-                <div class="row-2">
-                    <div class="loc">
+    <!-- <div class="center"> -->
+        <!-- <div class="details"> -->
+        <div class="container center">
+            <div class="row">
+                <section class="feature 6u 12u$(small) details">
+                    SKIN DEEP ZINES
+                    <div class="tabs">
+                        <ul>
                         {% for zine in zines %}
-                            <div> <div class="sample {{ zine.slug }}-thumb" sample="{{ zine.slug }}"></div> </div>
+                            <li><a href="#{{ zine.slug }}"></a></li>
+                        {% endfor %}
+                        </ul>
+                        {% for zine in zines %}
+                            <div id="{{ zine.slug }}">
+                                <h1>{{ zine.title }}</h1>
+                                {{ zine.description }}
+                            </div>
                         {% endfor %}
                     </div>
-                </div>
+                    someday soon you will be able to visit our <a href="">online articles</a>...
+                </section>
+                <section class="feature 6u 12u$(small)">
+                    <div class="bookshelf">
+                        <div class="shelf">
+                            <div class="row-1">
+                                <div class="loc">
+                                </div>
+                            </div>
+                            <div class="row-2">
+                                <div class="loc">
+                                    {% for zine in zines %}
+                                        <div> <div class="sample {{ zine.slug }}-thumb" sample="{{ zine.slug }}"></div> </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <!-- Samples-->
+                    <div class="samples">
+                        <div class="bar">
+                            <div class="share">
+                                <i class="icon table-contents" title="Table of contents"></i>
+                                <i class="icon zoom-in" title="Zoom in"></i>
+                                <i class="icon share-facebook" title="Share on facebook"></i>
+                                <i class="icon share-twitter" title="Share on Twitter"></i>
+                                <i class="icon share-plus" title="Share on G+"></i>
+                                <i class="icon share-pinterest" title="Share on Pinterest"></i>
+                            </div>
+                            <a class="icon quit"></a>
+                        </div>
+                        <div id="book-wrapper">
+                            <div id="book-zoom"></div>
+                        </div>
+                        <div id="slider-bar" class="turnjs-slider">
+                            <div id="slider"></div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
-
-    <!-- Samples-->
-        <div class="samples">
-            <div class="bar">
-                <div class="share">
-                    <i class="icon table-contents" title="Table of contents"></i>
-                    <i class="icon zoom-in" title="Zoom in"></i>
-                    <i class="icon share-facebook" title="Share on facebook"></i>
-                    <i class="icon share-twitter" title="Share on Twitter"></i>
-                    <i class="icon share-plus" title="Share on G+"></i>
-                    <i class="icon share-pinterest" title="Share on Pinterest"></i>
-                </div>
-                <a class="icon quit"></a>
-            </div>
-            <div id="book-wrapper">
-                <div id="book-zoom"></div>
-            </div>
-            <div id="slider-bar" class="turnjs-slider">
-                <div id="slider"></div>
-            </div>
-
-        </div>
-    </div>
+    <!-- </div> -->
 </div>
+</section>
 
 <script type="text/javascript">
 (function($) {

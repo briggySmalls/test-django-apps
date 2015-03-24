@@ -7,7 +7,7 @@ from django.conf import settings
 import shutil
 # from natsort import natsorted, ns
 # Receive the pre_delete signal and delete the file associated with the model instance.
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, post_save
 from django.dispatch.dispatcher import receiver
 from django.utils.text import slugify
 
@@ -81,9 +81,9 @@ class Zine(models.Model):
             if old_entry.title != self.title:
                 pdf_changed = False
                 # if the title is changed, rename directory
-                path = os.path.dirname(old_entry.path())
+                path = os.path.dirname(old_entry._path())
                 new_dir = os.path.normpath(os.path.join(path, self.slug))
-                os.rename(old_entry.path(), new_dir)
+                os.rename(old_entry._path(), new_dir)
                 # rename filename to reflect new directory
                 filename = os.path.basename(self.pdf_file.name)
                 self.pdf_file.name = os.path.normpath(os.path.join(new_dir, filename))
@@ -95,12 +95,13 @@ class Zine(models.Model):
         if pdf_changed:
             # now that new pdf is saved, convert to images
             self.convert_to_jpg()
+            self.pdf_file.delete(False)
 
     # method to delete associated files when instance deleted
     def destroy(self):
         # delete the image files
         # filename = os.path.splitext(self.pdf_file.name)[0]
-        filepath = self.path()
+        filepath = self._path()
         if(os.path.exists(filepath)):
             shutil.rmtree(filepath)
         # Pass false so FileField doesn't save the model.
@@ -119,35 +120,36 @@ class Zine(models.Model):
             size = '_' + str(width) + 'x' + str(height) + 'px'
 
         filepath = self.pdf_file.name
-        thumb_dir = os.path.normpath(os.path.join(self.path(), 'pics', ''))
-        img_dir = os.path.normpath(os.path.join(self.path(), 'pages', ''))
+        thumb_dir = os.path.normpath(os.path.join(self._path(), 'pics', ''))
+        img_dir = os.path.normpath(os.path.join(self._path(), 'pages', ''))
         os.makedirs(img_dir)  # mkdirs required for making folders recursively
         os.makedirs(thumb_dir)
 
-        input_file = PdfFileReader(open(filepath, 'rb'))
+        with open(filepath, 'rb') as opened_file:
+            input_file = PdfFileReader(opened_file)
 
-        for i in range(input_file.getNumPages()):
-            with Image(filename=filepath + '[' + str(i) + ']') as img:
-                if len(size) > 0:
-                    img.resize(width, height)
-                img.format = format
-                filename = img_dir + '/' + str(i+1)
-                img.save(filename=filename + '.' + format)  # TO DO: remove explicit '/'
-                std = Image(filename=filename + '.' + format)
-                std.resize(500, round(std.height/std.width * 500))
-                std.save(filename=filename + '-large.' + format)
-                if (i == 0):
-                    thumb = Image(filename=filename + '.' + format)
-                    thumb.resize(92, 115)
-                    thumb.save(filename=thumb_dir + '/thumb.' + format)
+            for i in range(input_file.getNumPages()):
+                with Image(filename=filepath + '[' + str(i) + ']') as img:
+                    if len(size) > 0:
+                        img.resize(width, height)
+                    img.format = format
+                    filename = img_dir + '/' + str(i+1)
+                    img.save(filename=filename + '.' + format)  # TO DO: remove explicit '/'
+                    std = Image(filename=filename + '.' + format)
+                    std.resize(500, round(std.height/std.width * 500))
+                    std.save(filename=filename + '-large.' + format)
+                    if (i == 0):
+                        thumb = Image(filename=filename + '.' + format)
+                        thumb.resize(92, 115)  # TO DO: set based on aspect ratio
+                        thumb.save(filename=thumb_dir + '/thumb.' + format)
 
-        #record the number of pages
-        self.page_count = input_file.getNumPages()
-        models.Model.save(self)  # don't trigger save function again.
+            # record the number of pages
+            self.page_count = input_file.getNumPages()
+            models.Model.save(self)  # don't trigger save function again.
 
     # PRIVATE MEMBER FUNCTIONS
     # def _get_pages(self):
-    #     pages_dir = os.path.join(self.path(), 'pages')
+    #     pages_dir = os.path.join(self._path(), 'pages')
     #     pages_list = os.listdir(pages_dir)
     #     return pages_list
 
