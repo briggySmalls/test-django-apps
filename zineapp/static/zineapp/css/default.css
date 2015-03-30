@@ -1,3 +1,7 @@
+
+/* 'BOOKSHELF' 
+/*#############################################################*/
+
 .splash{
 	width:100%;
 	height:100%;
@@ -27,7 +31,7 @@
 	position:relative;
 	z-index: 0;
 }
-/* OVERRIDE IF SMALL */
+/* OVERRIDE IF SMALL 
 html.small .splash .center{
 	width: 500px;
 }
@@ -293,7 +297,7 @@ html.small #book-wrapper{
 }
 
 .bookshelf{
-	float:right;
+	/*float:right;*/
 	/*margin-top:140px;*/
 }
 
@@ -421,9 +425,10 @@ html.small #book-wrapper{
 
 .bookshelf .sample,
 .bookshelf-row .sample{
+	background-size: contain;
 	/*background-image:url(../pics/book1.jpg);*/
-	width:92px;
-	height:115px;
+	/*width:92px;*/
+	/*height:115px;*/
 }
 
 footer{

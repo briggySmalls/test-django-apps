@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'zineapp/css/style.css' %}" />
 
 <script type="text/javascript">
 (function($) {
@@ -38,10 +39,8 @@
 .details .tabs ul{display: none;};
 </style>
 
-<section id="main" class="wrapper" style="padding: 0;">
+<section id="main" class="wrapper">
 <div class="splash">
-    <!-- <div class="center"> -->
-        <!-- <div class="details"> -->
         <div class="container center">
             <div class="row">
                 <section class="feature 6u 12u$(small) details">
@@ -63,21 +62,26 @@
                 </section>
                 <section id="zine-shelf" class="feature 6u 12u$(small)">
                     <div class="bookshelf">
-                        <div class="shelf">
-                            <div class="row-1">
-                                <div class="loc">
-                                </div>
-                            </div>
-                            <div class="row-2">
-                                <div class="loc">
-                                    {% for zine in zines %}
-                                        <div> <div class="sample {{ zine.slug }}-thumb" sample="{{ zine.slug }}"></div> </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
+                    <div class="carousel-viewport">
+                      <div class="carousel-container centered">
+                        <div id="carousel">
+                            {% for zine in zines %}
+                                <figure class="sample {{ zine.slug }}-thumb" sample="{{ zine.slug }}"></figure>
+                            {% endfor %}
                         </div>
+                      </div>
                     </div>
-
+                    <p id="navigation">
+                        <button id="previous" data-increment="-1">Previous</button>
+                        <button id="next" data-increment="1">Next</button>
+                    </p>
+                    <p>
+                        <button id="toggle-axis">Toggle Carousel Axis</button>
+                    </p>
+                    <p>
+                    <button id="toggle-backface-visibility">Toggle Backface Visibility</button>
+                    </p>
+                    </div>
                 <!-- Samples-->
                     <div class="samples">
                         <div class="bar">
@@ -104,7 +108,7 @@
     <!-- </div> -->
 </div>
 </section>
-
+<script type="text/javascript" src="{% static 'zineapp/lib/utils.js' %}"></script>
 <script type="text/javascript">
 (function($) {
     $(document).ready(function() {
@@ -121,6 +125,18 @@
             .mouseleave(function(){
                 $('.details .tabs').tabs("option", "active", false);
             });
+    });
+    $(window).keydown(function(e){
+        // left arrow
+        if ((e.keyCode || e.which) == 37)
+        {   
+            $('#previous').click();
+        }
+        // right arrow
+        if ((e.keyCode || e.which) == 39)
+        {
+            $('#next').click();
+        }   
     });
 })(jQuery);
 </script>

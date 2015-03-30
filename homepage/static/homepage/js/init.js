@@ -26,17 +26,20 @@
 				viewport: { scalable: false }
 			},
 			medium: {
+				// tablet landscape
 				media: '(max-width: 980px)',
 				href: 'static/homepage/css/style-medium.css',
 				containers: '90%'
 			},
 			small: {
+				// tablet portrait / phone landscape
 				media: '(max-width: 736px)',
 				href: 'static/homepage/css/style-small.css',
 				containers: '90%',
 				grid: { gutters: ['1.25em', 0] }
 			},
 			xsmall: {
+				// phone portrait
 				media: '(max-width: 480px)',
 				href: 'static/homepage/css/style-xsmall.css',
 			}

@@ -88,7 +88,7 @@ buildBookshelf = function(options){
 
         var transitionEnd = $.cssTransitionEnd(),
           actualDemo = currentDemo,
-          thumbnail = $('.shelf .sample[sample="'+currentDemo+'"]'),
+          thumbnail = $('figure.sample[sample="'+currentDemo+'"]'),
           bookWidth = $('#book-zoom').width()/2,
           bookHeight = $('#book-zoom').height()/2,
           targetPosition = thumbnail.offset(),
@@ -160,7 +160,7 @@ buildBookshelf = function(options){
 
       var smpl = currentDemo,
         sample = samples[currentDemo],
-        thumbnail = $('.shelf .sample[sample="'+currentDemo+'"]');
+        thumbnail = $('figure.sample[sample="'+currentDemo+'"]');
 
       if ($('.splash').data().zoom)
         $('.splash').zoom('zoomOut', 0);
