@@ -1,7 +1,6 @@
 
 /* 'BOOKSHELF' 
 /*#############################################################*/
-
 .splash{
 	width:100%;
 	height:100%;
@@ -410,9 +409,7 @@ html.small #book-wrapper{
 	border-radius:10px;
 }
 
-.bookshelf .shelf .hover,
-.bookshelf-row .hover,
-.bookshelf .shelf .loading{
+#carousel .sample.front{
 	z-index:2;
 	cursor:none;
 	background-color:white;
@@ -423,20 +420,19 @@ html.small #book-wrapper{
 	transform: scale3d(1.1, 1.1, 1) translate3d(0, -5px, 0);
 }
 
-.bookshelf .sample,
-.bookshelf-row .sample{
+.bookshelf .sample{
 	background-size: contain;
 	/*background-image:url(../pics/book1.jpg);*/
 	/*width:92px;*/
 	/*height:115px;*/
 }
 
-footer{
+/*footer{
 	font:14px 'District Thin', helvetica, arial;
 	line-height:100px;
 	text-align:center;
 	color:#666;
-}
+}*/
 
 /* GENERAL STUFF */
 ::-moz-selection{

@@ -27,20 +27,20 @@ button {
 
 /* CAROUSEL-SPECIFIC */
 figure{
-  width: 75%;
-  height: 75%;
+  /*width: 50%;*/
+  /*height: 69%*/
 }
 
 .carousel-viewport{
   width: 400px;
-  height: 400px;
+  height: 530px;
   border: 2px solid black;
   overflow: hidden;
 }
 
 .carousel-container {
-  width: 200px;
-  height: 280px;
+  /*width: 291px;*/
+  /*height: 435px;*/
   position: relative;
   border: 1px solid #CCC;
   -webkit-perspective: 1100px;
@@ -81,7 +81,6 @@ figure{
   /*top: 10px;*/
   top: 50%;
   left: 50%;
-  transform: translate(0%, -50%, -50%);
   border: 2px solid black;
   /*line-height: 116px;*/
   /*font-size: 80px;*/
