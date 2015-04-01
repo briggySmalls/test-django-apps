@@ -135,7 +135,14 @@ Carousel3D.prototype.transform = function() {
 };
 
 Carousel3D.prototype.setDims = function(aspectRatio, percentMargin){
-  var VtoX = Math.tan( Math.PI/ this.panelCount );
+  // aspectRatio of page (height/width) and aim for taking up percentMargin of carousel-container/polygon face
+  // Given R = (X/2)/tan(pi/2), and constraint that 2R = V(iewport) to keep it in view
+
+  // TO DO: find a more satisfactory fix than this hack
+  n = (this.panelCount > 10) ? 10 : this.panelCount;
+  var VtoX = Math.tan( Math.PI/ n );
+  VtoX = VtoX < 0.9 ? VtoX : 0.9;
+
   var Vx = $('.carousel-viewport').width();
   var Vy = $('.carousel-viewport').height();
 
