@@ -81,10 +81,24 @@ buildBookshelf = function(options){
           removeClass('no-transition').
           addClass('preview show-samples sample-'+currentDemo);
 
+
         $('#book-zoom').
           css({visibility:'hidden'}).
           removeClass('animate').
           transform('');
+
+        // set zine to take up as much room as possible based on screen size
+        params = zineResize($('#book-wrapper'), sample.aspectRatio);
+        $('.sam-test').css({
+          width: (params.display === 'double') ? params.x*2+'px' : params.x+'px',
+          height: params.y*sample.aspectRatio+'px',
+        });
+        $('.sam-test .page').css({
+          width: params.x+'px',
+          height: params.y+'px',
+        });
+        sample.flipbook.turn('display', params.display);
+        sample.flipbook.turn('size', (params.display === 'double') ? params.x*2 : params.x, params.y);
 
         var transitionEnd = $.cssTransitionEnd(),
           actualDemo = currentDemo,
@@ -289,7 +303,6 @@ buildBookshelf = function(options){
       } else
         for (var i = 0; i<pics.length; i++)
           load(pics[i]);
-
     },
 
     // load css and js of the sample (sampleName.js/.css)
@@ -604,46 +617,46 @@ buildBookshelf = function(options){
 
     // Mousewheel
 
-    $('#book-zoom').mousewheel(function(event, delta, deltaX, deltaY) {
+    // $('#book-zoom').mousewheel(function(event, delta, deltaX, deltaY) {
 
-      if (!currentDemo)
-        return;
+    //   if (!currentDemo)
+    //     return;
 
-      event.preventDefault();
+    //   event.preventDefault();
 
-      var flipbook = samples[currentDemo].flipbook;
+    //   var flipbook = samples[currentDemo].flipbook;
 
-      if (flipbook.turn('zoom')!=1)
-        return;
+    //   if (flipbook.turn('zoom')!=1)
+    //     return;
 
-      var step = 30,
-        actualPos = $( "#slider" ).slider('value')*step;
+    //   var step = 30,
+    //     actualPos = $( "#slider" ).slider('value')*step;
 
-      if (scrollX===null) {
-        scrollX = actualPos;
-        scrollPage = flipbook.turn('page');
-      }
+    //   if (scrollX===null) {
+    //     scrollX = actualPos;
+    //     scrollPage = flipbook.turn('page');
+    //   }
 
-      scrollX = Math.min($( "#slider" ).slider('option', 'max')*step,
-        Math.max(0, scrollX + deltaX));
+    //   scrollX = Math.min($( "#slider" ).slider('option', 'max')*step,
+    //     Math.max(0, scrollX + deltaX));
 
-      var actualView = Math.round(scrollX/step),
-        page = Math.min(flipbook.turn('pages'), Math.max(1, actualView*2 - 2));
+    //   var actualView = Math.round(scrollX/step),
+    //     page = Math.min(flipbook.turn('pages'), Math.max(1, actualView*2 - 2));
 
-      if ($.inArray(scrollPage, flipbook.turn('view', page))==-1) {
-        scrollPage = page;
-        flipbook.turn('page', page);
-      }
+    //   if ($.inArray(scrollPage, flipbook.turn('view', page))==-1) {
+    //     scrollPage = page;
+    //     flipbook.turn('page', page);
+    //   }
 
-      if (scrollTimer)
-        clearInterval(scrollTimer);
+    //   if (scrollTimer)
+    //     clearInterval(scrollTimer);
 
-      scrollTimer = setTimeout(function(){
-        scrollX = null;
-        scrollPage = null;
-      }, 1000);
+    //   scrollTimer = setTimeout(function(){
+    //     scrollX = null;
+    //     scrollPage = null;
+    //   }, 1000);
 
-    });
+    // });
 
   });
 
@@ -782,23 +795,23 @@ buildBookshelf = function(options){
 
   // VIEWPORT ADJUSTMENTS
   
-  // on viewport change to small, set any zine to single page
-  skel.on('+small', function() {
-    if (!currentDemo)
-      return;
-    var sample = samples[currentDemo];
-    sample.flipbook.turn("display", "single");
-    sample.flipbook.turn("size", 461, 600);
-  });
+  // // on viewport change to small, set any zine to single page
+  // skel.on('+small', function() {
+  //   if (!currentDemo)
+  //     return;
+  //   var sample = samples[currentDemo];
+  //   sample.flipbook.turn("display", "single");
+  //   sample.flipbook.turn("size", 461, 600);
+  // });
 
-  // on viewport change from small, set any zine to single page
-  skel.on('-small', function() {
-    if (!currentDemo)
-      return;
-    var sample = samples[currentDemo];
-    sample.flipbook.turn("display", "double");
-    sample.flipbook.turn("size", 922, 600);
-  });
+  // // on viewport change from small, set any zine to double page
+  // skel.on('-small', function() {
+  //   if (!currentDemo)
+  //     return;
+  //   var sample = samples[currentDemo];
+  //   sample.flipbook.turn("display", "double");
+  //   sample.flipbook.turn("size", 922, 600);
+  // });
 
 };
 })(jQuery);
@@ -821,8 +834,29 @@ function isChrome() {
   return navigator.userAgent.indexOf('Chrome')!=-1;
 }
 
-function isSmall() {
-  return skel.isActive('small');
+// function isSmall() {
+//   return false;
+//   // return skel.isActive('small');
+// }
+
+// function isPortrait() {
+//   return $(window).width() < $(window).height();
+// }
+
+function zineResize(container, aspect) {
+  var X = container.width();
+  var Y = container.height();
+  var x, y, display;
+  if (Y <= aspect * X){
+    y = Y;
+    x = y/aspect;
+    display = (X >= 2*x) ? 'double' : 'single';
+  } else {
+    x = X;
+    y = aspect * x;
+    display = 'single';
+  }
+  return {'x': x, 'y': y, 'display': display};
 }
 
 function numberOfViews(book) {

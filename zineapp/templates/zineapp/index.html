@@ -39,13 +39,13 @@
 .details .tabs ul{display: none;};
 </style>
 
-<section id="main" class="wrapper">
+<section id="main" class="wrapper" style="padding: 0px;">
 <div class="splash">
         <div class="container center">
             <div class="row">
                 <section class="feature 6u 12u$(small) details">
                     SKIN DEEP ZINES
-                    <div class="tabs">
+                    <div id="zine-details">
                         <ul>
                         {% for zine in zines %}
                             <li><a href="#{{ zine.slug }}"></a></li>
@@ -112,31 +112,12 @@
 <script type="text/javascript">
 (function($) {
     $(document).ready(function() {
-        $(".tabs").tabs({
+        $("#zine-details").tabs({
            heightStyle:"fill",
            collapsible:true,
            show:"fadeIn",
            active:false, // initially no tabs active
         });
-        $(".sample")
-            .mouseenter(function(){
-                $('.details .tabs').tabs("option", "active", $(this).parent().index());
-            })
-            .mouseleave(function(){
-                $('.details .tabs').tabs("option", "active", false);
-            });
-    });
-    $(window).keydown(function(e){
-        // left arrow
-        if ((e.keyCode || e.which) == 37)
-        {   
-            $('#previous').click();
-        }
-        // right arrow
-        if ((e.keyCode || e.which) == 39)
-        {
-            $('#next').click();
-        }   
     });
 })(jQuery);
 </script>

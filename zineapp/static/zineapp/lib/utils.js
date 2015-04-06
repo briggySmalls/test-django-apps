@@ -62,22 +62,22 @@ DDD.translate = Modernizr.csstransforms3d ?
 /* ==================== Start Up ==================== */
 
 
-DDD.init = function() {
+// DDD.init = function() {
   
-  var ranges = document.querySelectorAll('input[type="range"]'),
-      rangesLen = ranges.length,
-      i;
+//   var ranges = document.querySelectorAll('input[type="range"]'),
+//       rangesLen = ranges.length,
+//       i;
   
-  if ( rangesLen ) {
+//   if ( rangesLen ) {
     
-     // create range output display
-    for ( i=0; i < rangesLen; i++ ) {
-      new DDD.RangeDisplay( ranges[i] );
-    }
+//      // create range output display
+//     for ( i=0; i < rangesLen; i++ ) {
+//       new DDD.RangeDisplay( ranges[i] );
+//     }
     
-  }
+//   }
   
-};
+// };
 
 
 window.addEventListener( 'DOMContentLoaded', DDD.init, false);
@@ -132,6 +132,8 @@ Carousel3D.prototype.transform = function() {
   // push the carousel back in 3D space,
   // and rotate it
   this.element.style[ transformProp ] = 'translateZ(-' + this.radius + 'px) ' + this.rotateFn + '(' + this.rotation + 'deg)';
+  // 360/this.panelCount is 1st.
+  this.activeElement();
 };
 
 Carousel3D.prototype.setDims = function(aspectRatio, percentMargin){
@@ -168,6 +170,21 @@ Carousel3D.prototype.setDims = function(aspectRatio, percentMargin){
   });
 };
 
+Number.prototype.mod = function(n) {
+    return ((this%n)+n)%n;
+};
+
+Carousel3D.prototype.activeElement = function(){
+  if (this.active){
+    this.element.children[this.active].removeClassName('active');
+  }
+  var v = this.rotation / this.theta * -1;
+  var index = v.mod(this.panelCount);
+  this.active = index;
+  this.element.children[index].addClassName('active');
+  onRotation(index);
+};
+
 var init = function() {
 
   var carousel = new Carousel3D( document.getElementById('carousel') ),
@@ -184,7 +201,7 @@ var init = function() {
   // populate on startup
   carousel.panelCount = panelCountInput.children.length;
   carousel.modify();
-  carousel.setDims(1.414, 0.65);
+  carousel.setDims(1.414, 0.50);
 
   axisButton.addEventListener( 'click', function(){
     carousel.isHorizontal = !carousel.isHorizontal;
@@ -204,6 +221,10 @@ var init = function() {
     document.body.addClassName('ready');
   }, 0);
 
+};
+
+var onRotation = function(index) {
+  $('#zine-details').tabs( "option", "active", index );
 };
 
 window.addEventListener( 'DOMContentLoaded', init, false);

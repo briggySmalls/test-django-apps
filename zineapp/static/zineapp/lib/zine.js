@@ -29,34 +29,7 @@ zine = function(sampleName, samplePath, pageCount){
         }
     }
 
-    // function that gives impressions of pages stacking (using page-depth.jpg)
-    function updateDepth(book, newPage) {
-
-        var page = book.turn('page'),
-            pages = book.turn('pages'),
-            depthWidth = 16*Math.min(1, page*2/pages);
-
-            newPage = newPage || page;
-
-        if (newPage>3)
-            $('.sam-test .p2 .depth').css({
-                width: depthWidth,
-                left: 20 - depthWidth
-            });
-        else
-            $('.sam-test .p2 .depth').css({width: 0});
-
-            depthWidth = 16*Math.min(1, (pages-page)*2/pages);
-
-        if (newPage<pages-3)
-            $('.sam-test .p111 .depth').css({
-                width: depthWidth,
-                right: 20 - depthWidth
-            });
-        else
-            $('.sj-book .p111 .depth').css({width: 0});
-
-    }
+    // TO DO: decide if you want page-stacking here?
 
     function loadPage(page) {
 
@@ -151,8 +124,6 @@ zine = function(sampleName, samplePath, pageCount){
                 else
                     $('.next-button').show();
 
-                updateDepth(book, page);
-
             },
 
             turned: function(e, page, view) {
@@ -229,6 +200,8 @@ zine = function(sampleName, samplePath, pageCount){
                     } else {
 
                         $('sam-test').removeClass('animated').addClass('zoom-in');
+                        // TO DO: setting splash to page height is now redundant? Probs best to keep in
+                        // in case Sylvia prefers a larger-than-100% splash when inactive
                         $('.splash').addClass('no-transition').height($(window).height());
                         // $('body > :not(.splash)').hide(); TO DO: hide window scrollbar when zoomed
 
@@ -291,13 +264,18 @@ zine = function(sampleName, samplePath, pageCount){
             return;
         }
 
+        // preview relates to the slider-bar
         sample.previewWidth = 112;
         sample.previewHeight = 73;
         sample.previewSrc = samplePath + 'pics/preview.jpg';
-        sample.tableContents = 3;
+        sample.tableContents = 3; // page for TOC icon to link to
         sample.shareLink = 'http://' + location.host + '/#'+samplePath;
         sample.shareText = 'Turn.js: Make a flipbook with HTML5 via @turnjs';
 
+        // save the aspect ratio for rendering
+        var img = new Image();
+        img.src = samplePath + 'pages/1.jpg';
+        sample.aspectRatio = img.height/img.width;
 
         // Report that the flipbook is loaded
         if (!sample.flipbook) {
@@ -347,11 +325,8 @@ zine = function(sampleName, samplePath, pageCount){
             loadFlipbook(sample.flipbook);
 
         }
-            sample.flipbook.turn("display", isSmall() ? "single" : "double");
-            sample.flipbook.turn("size", isSmall() ? 461 : 922, 600);
-            bookshelf.showSample();
+        bookshelf.showSample();
         });
-
     });
 };
 })(jQuery);

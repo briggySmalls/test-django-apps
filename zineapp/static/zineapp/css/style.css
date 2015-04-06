@@ -1,3 +1,5 @@
+/* CAROUSEL */
+/*##########################################################################*/
 /* GENERAL */
 
 #options {
@@ -32,10 +34,14 @@ figure{
 }
 
 .carousel-viewport{
-  width: 400px;
-  height: 530px;
+  width: 40vw;
+  height: 80vh;
   border: 2px solid black;
   overflow: hidden;
+}
+html.small .carousel-viewport{
+  width: 80vw;
+  height: 40vh;
 }
 
 .carousel-container {
@@ -95,4 +101,16 @@ figure{
      -moz-transition: opacity 1s, -moz-transform 1s;
        -o-transition: opacity 1s, -o-transform 1s;
           transition: opacity 1s, transform 1s;
+}
+
+/* ZINE-DETAILS */
+/*########################################################################*/
+
+#zine-details.ui-tabs{
+  width: 40vw;
+  height: 80vh;
+}
+html.small #zine-details.ui-tabs{
+  width: 80vw;
+  height: 40vh;
 }
