@@ -1,4 +1,4 @@
-<section id="one" class="wrapper style1 align-center">
+<section id="one" class="wrapper align-center">
 <div id="{{ container.slugify_title }}">
     {% if container.sorted_tab_set|length > 1 %}
     <ul>
@@ -10,20 +10,20 @@
     {% for tab in container.sorted_tab_set %}
         <div id="{{ tab.slugify_keyword }}">
             {% if tab.article %}
-                    <h4>{{ tab.article.title }}</h4>
-                    <h5>{{ tab.article.subtitle}}</h5>
+                    <!-- <h4>{{ tab.article.title }}</h4> -->
+                    <!-- <h5>{{ tab.article.subtitle}}</h5> -->
                     {{ tab.article.full_content |safe }}
             {% elif tab.category %}
                 <div class="container">
-                    <div class="row 200%">
+                     <div class="row 200%">
                         {% for article in tab.sorted_article_set %}
-                        <section class="4u 12u$(small)">
-                                <h4>{{ article.title }}</h4>
-                                <h5>{{ article.subtitle}}</h5>
+                         <section class="{% widthratio 12 tab.column_count 1 %}u 12u$(small)">
+                                <!-- <h4>{{ article.title }}</h4> -->
+                                <!-- <h5>{{ article.subtitle}}</h5> -->
                                 {{ article.full_content |safe }}
                         </section>
                         {% endfor %}
-                    </div>
+                    <!-- </div> -->
                 </div>
             {% endif %}
         </div>

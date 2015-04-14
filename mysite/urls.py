@@ -30,7 +30,7 @@ urlpatterns = patterns(
     # restricted access to ckeditor upload/browse
     url(r'^ckeditor/', include('ckeditor.urls')),
     # fbfeed URLs
-    url(r'^feed/', FacebookGroupPosts(**kwargs))
+    #   url(r'^feed/', FacebookGroupPosts(**kwargs))
 )
 
 # NOTE THAT PRODUCTION SERVER WILL NEED TO BE DIFFERENT

@@ -23,7 +23,7 @@
 	}
 
 	a {
-		color: #4dac71;
+		/*color: #4dac71;*/
 		text-decoration: underline;
 	}
 
@@ -1000,12 +1000,12 @@
 	}
 
 		.wrapper.style1 {
-			background-color: #3ba666;
+			/*background-color: #3ba666;*/
 			-moz-background-image: linear-gradient(60deg, #4dac71 50%, #3ba666 50%);
 			-webkit-background-image: linear-gradient(60deg, #4dac71 50%, #3ba666 50%);
 			-o-background-image: linear-gradient(60deg, #4dac71 50%, #3ba666 50%);
 			-ms-background-image: linear-gradient(60deg, #4dac71 50%, #3ba666 50%);
-			background-image: linear-gradient(60deg, #4dac71 50%, #3ba666 50%);
+			/*background-image: linear-gradient(60deg, #4dac71 50%, #3ba666 50%);*/
 			color: #ffffff;
 		}
 

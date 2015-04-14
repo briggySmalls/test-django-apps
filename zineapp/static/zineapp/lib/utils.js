@@ -148,18 +148,18 @@ Carousel3D.prototype.setDims = function(aspectRatio, percentMargin){
   var Vx = $('.carousel-viewport').width();
   var Vy = $('.carousel-viewport').height();
 
-
   $('.carousel-container').width(Vx * VtoX);
   $('.carousel-container').height(Vy * VtoX);
 
-  var yQuery1 = percentMargin * VtoX * Vy;
+  // var yQuery1 = percentMargin * VtoX * Vy;
   var yQuery2 = percentMargin * VtoX * Vx * aspectRatio;
-  var x, y;
-  if (yQuery1 < yQuery2){
-    y = yQuery1;
-  } else {
-    y = yQuery2;
-  }
+  // var x, y;
+  // if (yQuery1 < yQuery2){
+  //   y = yQuery1;
+  // } else {
+  //   y = yQuery2;
+  // }
+  y = yQuery2;
   x = y / aspectRatio;
   $('figure').css({'width': x+'px', 'height': y+'px'});
 
@@ -189,7 +189,6 @@ var init = function() {
 
   var carousel = new Carousel3D( document.getElementById('carousel') ),
       panelCountInput = document.getElementById('carousel'),
-      axisButton = document.getElementById('toggle-axis'),
       navButtons = document.querySelectorAll('#navigation button'),
 
       onNavButtonClick = function( event ){
@@ -203,19 +202,9 @@ var init = function() {
   carousel.modify();
   carousel.setDims(1.414, 0.50);
 
-  axisButton.addEventListener( 'click', function(){
-    carousel.isHorizontal = !carousel.isHorizontal;
-    carousel.modify();
-  }, false);
-
-
   for (var i=0; i < 2; i++) {
     navButtons[i].addEventListener( 'click', onNavButtonClick, false);
   }
-
-  document.getElementById('toggle-backface-visibility').addEventListener( 'click', function(){
-    carousel.element.toggleClassName('panels-backface-invisible');
-  }, false);
 
   setTimeout( function(){
     document.body.addClassName('ready');

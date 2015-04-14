@@ -46,7 +46,7 @@ INSTALLED_APPS = (
     'container',  # SJB: generic (tabbed) content container
     'zineapp',  # SJB: app for uploading and displaying zines
     'articles',  # SJB: app for recording rich text articles
-    'fbfeed',
+    #'fbfeed',
 )
 
 MIDDLEWARE_CLASSES = (

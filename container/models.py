@@ -3,11 +3,14 @@ from django.utils.text import slugify
 from articles.models import Article, Category
 
 
+def default_order():
+    int(len(Tab.objects.all())+1)
+
 # Create your models here.
 class Container(models.Model):
     # a container is registered to a scrollpage
     # this could later be registered to a scrollpage POSITION
-    # make OnetoOne so that position gets taken?
+    # TO DO: make OnetoOne so that position gets taken?
     scrollpage = models.ForeignKey('homepage.ScrollPage', blank=True, null=True)
     title = models.CharField(max_length=200)
 
@@ -15,7 +18,7 @@ class Container(models.Model):
         return self.title
 
     def sorted_tab_set(self):
-        return self.tab_set.order_by('pk')  # TO DO: sort by something else
+        return self.tab_set.order_by('order')  # TO DO: sort by something else
 
     def slugify_title(self):
         return slugify(self.title)
@@ -25,6 +28,9 @@ class Tab(models.Model):
     # a Container is made up of Tabs
     container = models.ForeignKey(Container)
     keyword = models.CharField(max_length=15)  # word that appears on the Tab
+    order = models.PositiveIntegerField(default=2)
+    column_count = models.PositiveIntegerField(default=1)
+    # TO DO: setting for number of columns?
 
     # link tab to article or category
     article = models.ForeignKey(Article, blank=True, null=True)
@@ -39,3 +45,6 @@ class Tab(models.Model):
 
     def slugify_keyword(self):
         return slugify(self.keyword)
+
+    def get_pk(self):
+        return self.pk

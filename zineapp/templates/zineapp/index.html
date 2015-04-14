@@ -18,7 +18,7 @@
 </script>
 
 <style type="text/css">
-.splash{background:url("{% static 'zineapp/pics/splash-bg.jpg'%}") bottom left repeat-x;}
+//.splash{background:url("{% static 'zineapp/pics/splash-bg.jpg'%}") bottom left repeat-x;}
 .icon{background-image:url("{% static 'zineapp/pics/new-sprites.png'%}");}
 /*.bookshelf .shelf .row-1:after,*/
 .bookshelf .shelf .row-2:after{
@@ -39,11 +39,11 @@
 .details .tabs ul{display: none;};
 </style>
 
-<section id="main" class="wrapper" style="padding: 0px;">
+<section id="main" class="wrapper">
 <div class="splash">
         <div class="container center">
             <div class="row">
-                <section class="feature 6u 12u$(small) details">
+                <section class="feature 6u 12u$(small) details align-center">
                     SKIN DEEP ZINES
                     <div id="zine-details">
                         <ul>
@@ -58,7 +58,7 @@
                             </div>
                         {% endfor %}
                     </div>
-                    someday soon you will be able to visit our <a href="">online articles</a>...
+                    <!-- <p>someday soon you will be able to visit our <a href="">online articles</a>...</p> -->
                 </section>
                 <section id="zine-shelf" class="feature 6u 12u$(small)">
                     <div class="bookshelf">
@@ -74,12 +74,6 @@
                     <p id="navigation">
                         <button id="previous" data-increment="-1">Previous</button>
                         <button id="next" data-increment="1">Next</button>
-                    </p>
-                    <p>
-                        <button id="toggle-axis">Toggle Carousel Axis</button>
-                    </p>
-                    <p>
-                    <button id="toggle-backface-visibility">Toggle Backface Visibility</button>
                     </p>
                     </div>
                 <!-- Samples-->
