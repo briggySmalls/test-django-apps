@@ -88,7 +88,8 @@ buildBookshelf = function(options){
           transform('');
 
         // set zine to take up as much room as possible based on screen size
-        params = zineResize($('#book-wrapper'), sample.aspectRatio);
+        var coords = {'x': $('.samples').width()*0.95, 'y': $('.samples').height()*0.75}
+        params = zineResize(coords, sample.aspectRatio);
         $('.sam-test').css({
           width: (params.display === 'double') ? params.x*2+'px' : params.x+'px',
           height: params.y*sample.aspectRatio+'px',
@@ -843,9 +844,9 @@ function isChrome() {
 //   return $(window).width() < $(window).height();
 // }
 
-function zineResize(container, aspect) {
-  var X = container.width();
-  var Y = container.height();
+function zineResize(coords, aspect) {
+  var X = coords.x;
+  var Y = coords.y;
   var x, y, display;
   if (Y <= aspect * X){
     y = Y;

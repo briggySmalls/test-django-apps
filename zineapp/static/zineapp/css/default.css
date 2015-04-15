@@ -92,6 +92,7 @@
 
 .show-samples .samples{
 	display:block;
+	text-align: center;
 }
 
 .samples .bar{
@@ -156,7 +157,7 @@
 	cursor:default;
 	position:absolute;
 	right:0;
-	top:45px;
+	top:12vh;
 }
 
 .samples .quit:hover{
@@ -166,10 +167,11 @@
 #book-wrapper{
 	/*width:960px;*/
 	/*height:600px;*/
-	width: 96%;
+	/*width: 96%;
 	height: 75%;
 	margin-left: auto;
-	margin-right: auto;
+	margin-right: auto;*/
+	display: inline-block;
 }
 
 /* SAMPLE BAR */
@@ -241,14 +243,6 @@
 
 .share-twitter-hover{
 	background-position:-132px -22px;
-}
-
-.share-pinterest-hover{
-	background-position:-154px -22px;
-}
-
-.share-plus-hover{
-	background-position:-176px -22px;
 }
 
 /* NO ACTIVE ZINE */

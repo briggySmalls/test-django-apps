@@ -115,10 +115,6 @@ class Zine(models.Model):
         self.__convert_to_img__(width, height, 'jpg')
 
     def __convert_to_img__(self, width, height, format='jpg'):
-        size = ''
-        if width and height:
-            size = '_' + str(width) + 'x' + str(height) + 'px'
-
         filepath = self.pdf_file.name
         thumb_dir = os.path.normpath(os.path.join(self._path(), 'pics', ''))
         img_dir = os.path.normpath(os.path.join(self._path(), 'pages', ''))
@@ -127,24 +123,32 @@ class Zine(models.Model):
 
         with open(filepath, 'rb') as opened_file:
             input_file = PdfFileReader(opened_file)
+            num_of_pages = input_file.getNumPages()
 
-            for i in range(input_file.getNumPages()):
-                with Image(filename=filepath + '[' + str(i) + ']') as img:
-                    if len(size) > 0:
+            for i in range(num_of_pages):
+                with Image(filename=filepath + '[' + str(i) + ']', resolution=200) as img:
+                    aspect = img.height / img.width
+                    img.compression_quality = 100
+                    # image for zoomed in page
+                    if width and height:
                         img.resize(width, height)
+                    else:
+                        img.resize(1000, round(1000 * aspect))
                     img.format = format
                     filename = img_dir + '/' + str(i+1)
-                    img.save(filename=filename + '.' + format)  # TO DO: remove explicit '/'
-                    std = Image(filename=filename + '.' + format)
-                    std.resize(500, round(std.height/std.width * 500))
-                    std.save(filename=filename + '-large.' + format)
-                    if (i == 0):
+                    img.save(filename=filename + '-large.' + format)
+                    # image for standard size page
+                    std = img
+                    std.resize(500, round(500 * aspect))
+                    std.save(filename=filename + '.' + format)
+                    if i == 0:
+                        # create a sample thumbnail for the zine icon
                         thumb = Image(filename=filename + '.' + format)
-                        thumb.resize(92, 115)  # TO DO: set based on aspect ratio
+                        thumb.resize(150, round(150 * aspect))  # TO DO: set based on aspect ratio
                         thumb.save(filename=thumb_dir + '/thumb.' + format)
 
             # record the number of pages
-            self.page_count = input_file.getNumPages()
+            self.page_count = num_of_pages
             models.Model.save(self)  # don't trigger save function again.
 
     # PRIVATE MEMBER FUNCTIONS
