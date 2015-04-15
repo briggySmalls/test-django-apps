@@ -6,6 +6,7 @@ from container.models import Container, Tab
 class TabInline(admin.StackedInline):
     model = Tab
     extra = 0
+    ordering = ("order",)
 
 
 class ContainerAdmin(admin.ModelAdmin):

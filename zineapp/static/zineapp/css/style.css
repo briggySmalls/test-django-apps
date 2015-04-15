@@ -36,7 +36,7 @@ figure{
 .carousel-viewport{
   width: 40vw;
   height: 80vh;
-  border: 2px solid black;
+  /*border: 2px solid black;*/
   overflow: hidden;
 }
 html.small .carousel-viewport{
@@ -48,7 +48,7 @@ html.small .carousel-viewport{
   /*width: 291px;*/
   /*height: 435px;*/
   position: relative;
-  border: 1px solid #CCC;
+  /*border: 1px solid #CCC;*/
   -webkit-perspective: 1100px;
      -moz-perspective: 1100px;
        -o-perspective: 1100px;
@@ -113,4 +113,8 @@ html.small .carousel-viewport{
 html.small #zine-details.ui-tabs{
   width: 80vw;
   height: 40vh;
+}
+
+#zine-details .ui-tabs-nav{
+  display: none;
 }

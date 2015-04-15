@@ -89,7 +89,7 @@
 .sam-test .next-button,
 .sam-test .previous-button{
 	width:22px;
-	height:600px;
+	height:100%;
 	position:absolute;
 	top:0;
 }
@@ -120,7 +120,7 @@
 .sam-test .previous-button-hover,
 .sam-test .previous-button-down{
 	/*background-image:url(../pics/arrows.png);*/
-	background-position:-4px 284px;
+	background-position:-4px 50%;
 	background-repeat:no-repeat;
 }
 
@@ -132,6 +132,6 @@
 .sam-test .next-button-hover,
 .sam-test .next-button-down{
 	/*background-image:url(../pics/arrows.png);*/
-	background-position:-38px 284px;
+	background-position:-38px 50%;
 	background-repeat:no-repeat;
 }

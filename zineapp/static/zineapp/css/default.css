@@ -92,6 +92,7 @@
 
 .show-samples .samples{
 	display:block;
+	text-align: center;
 }
 
 .samples .bar{
@@ -156,7 +157,7 @@
 	cursor:default;
 	position:absolute;
 	right:0;
-	top:45px;
+	top:12vh;
 }
 
 .samples .quit:hover{
@@ -166,10 +167,11 @@
 #book-wrapper{
 	/*width:960px;*/
 	/*height:600px;*/
-	width: 96%;
+	/*width: 96%;
 	height: 75%;
 	margin-left: auto;
-	margin-right: auto;
+	margin-right: auto;*/
+	display: inline-block;
 }
 
 /* SAMPLE BAR */
@@ -185,7 +187,6 @@
 	display:block;
 	float:left;
 }
-
 
 .development{
 	background-position:0 0;
@@ -244,30 +245,22 @@
 	background-position:-132px -22px;
 }
 
-.share-pinterest-hover{
-	background-position:-154px -22px;
-}
-
-.share-plus-hover{
-	background-position:-176px -22px;
-}
-
 /* NO ACTIVE ZINE */
 .details{
-	-webkit-transition:all 1s;
-	-moz-transition:all 1s;
-	-o-transition:all 1s;
-	-ms-transition:all 1s;
-	transition:all 1s;
+	-webkit-transition:opacity 1s;
+	-moz-transition:opacity 1s;
+	-o-transition:opacity 1s;
+	-ms-transition:opacity 1s;
+	transition:opacity 1s;
 	cursor:default;
 }
 
 .bookshelf{
-	-webkit-transition:all 1s;
-	-moz-transition:all 1s;
-	-o-transition:all 1s;
-	-ms-transition:all 1s;
-	transition:all 1s;
+	-webkit-transition:opacity 1s;
+	-moz-transition:opacity 1s;
+	-o-transition:opacity 1s;
+	-ms-transition:opacity 1s;
+	transition:opacity 1s;
 }
 
 .bookshelf .suggestion{
@@ -324,7 +317,7 @@
 	border-radius:10px;
 }
 
-#carousel .sample.active{
+/*#carousel .sample.active{
 	z-index:2;
 	cursor:none;
 	background-color:white;
@@ -333,7 +326,7 @@
 	-ms-transform: scale3d(1.1, 1.1, 1) translate3d(0, -5px, 0);
 	-o-transform: scale3d(1.1, 1.1, 1) translate3d(0, -5px, 0);
 	transform: scale3d(1.1, 1.1, 1) translate3d(0, -5px, 0);
-}
+}*/
 
 .bookshelf .sample{
 	background-size: contain;
